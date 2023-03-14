@@ -21,3 +21,31 @@ puts "----------"
 # Ask the user for a store name (store it in a variable)
 # Attempt to create a store with the inputted name but leave out the other fields (annual_revenue, mens_apparel, and womens_apparel)
 # Display the error messages provided back from ActiveRecord to the user (one on each line) after you attempt to save/create the record
+class Employee
+    validates :first_name, :last_name, :store_id, presence: true
+    validates :hourly_rate, numericality: { only_integer: true }
+  end
+  
+  class Store
+    validates :annual_revenue, :name, presence: true
+    validates :name, length: { minimum: 3 }
+    validates :annual_revenue, numericality: { only_integer: true }
+    validates :annual_revenue, numericality: {greater_than_or_equal_to: 0}
+  
+    def stores_must_carry_mens_or_womens_apparel
+      if mens_apparel = false && womens_apparel = false
+        errors.add(:expiration_date, "store must carry either men's or women's apparel")
+      end
+    end
+  end
+  
+  def add_store 
+    
+    puts "Add a new store"
+    print "> "
+    user_input = $stdin.gets.chomp.to_s
+    new_store = Store.create(name: user_input)
+    pp new_store.errors.full_messages
+  end
+  
+  add_store

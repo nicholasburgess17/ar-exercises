@@ -23,3 +23,18 @@ puts "----------"
 # You can do this by making multiple calls to create (like you have before.) No need to assign the employees to variables though. 
 # Create them through the @store# instance variables that you defined in previous exercises.
 #  Create a bunch under @store1 (Burnaby) and @store2 (Richmond). Eg: @store1.employees.create(...).
+class Store
+    has_many :employees
+  end
+  
+  class Employee
+    belongs_to :store
+  end
+  
+  @store1.employees.create(first_name: "Khurram", last_name: "Virani", hourly_rate: 60)
+  @store1.employees.create(first_name: "Ryan", last_name: "De Mesa", hourly_rate: 30)
+  @store1.employees.create(first_name: "Natasha", last_name: "Sevilla", hourly_rate: 50)
+  @store2.employees.create(first_name: "Milo", last_name: "Dogg", hourly_rate: 100)
+  @store2.employees.create(first_name: "Bear", last_name: "Dogg", hourly_rate: 10)
+  
+  pp Employee.all
